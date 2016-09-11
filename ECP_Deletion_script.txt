@@ -1,0 +1,13 @@
+declare @a datetime
+declare @c time
+declare @b varchar(20)
+declare @d varchar(20)
+declare @final varchar(100)
+select @a = getdate()
+select @c = getdate()
+select @d = @c
+print "%1!", @a
+set @b =SUBSTRING(dateadd(dd,<backup retention period>,@a),1,11)
+set @final = "sp_deletesmobj 'syb_tsm','<SID>','<server name>','<backup object name>','<backup type>',"+"'"+@b+""+@d+"'"
+exec (@final)
+Go >> <log file location>
